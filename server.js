@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 
 const app = express();
-const PORT = 6989;
+const PORT = process.env.PORT || 6989;
 
 // MongoDB
 mongoose
