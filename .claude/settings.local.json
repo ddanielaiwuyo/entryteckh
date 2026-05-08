@@ -5,7 +5,9 @@
       "Bash(npm run *)",
       "Bash(pkill -f \"node server.js\")",
       "Bash(node /home/daniel/claude_projects/porfolio/server.js)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:6989/thank-you)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:6989/thank-you)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:6989)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:6989/experience)"
     ]
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Portfolio() {
   const navigate = useNavigate();
@@ -441,6 +441,7 @@ export default function Portfolio() {
           <div className="nav-left">
             <div className="logo">Daniels Micheal</div>
             <div className="nav-links">
+              <Link to="/experience" className="nav-link">Experience</Link>
               <span className="nav-link" onClick={() => scrollToSection('services')}>Services</span>
               <span className="nav-link" onClick={() => scrollToSection('process')}>Process</span>
               <span className="nav-link" onClick={() => scrollToSection('contact')}>Contact</span>
