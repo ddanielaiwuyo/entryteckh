@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Portfolio() {
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(
     () => window.matchMedia('(prefers-color-scheme: dark)').matches
   );
+  const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formError, setFormError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -47,6 +48,7 @@ export default function Portfolio() {
   };
 
   const scrollToSection = (id) => {
+    setMenuOpen(false);
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -432,32 +434,191 @@ export default function Portfolio() {
 
         .copyright { color: var(--text-tertiary); font-size: 14px; }
 
+        .about {
+          padding: 100px 0;
+          border-top: 1px solid var(--border);
+        }
+
+        .about-inner {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: start;
+        }
+
+        .about-left {}
+
+        .about-body {
+          font-size: 18px;
+          color: var(--text-secondary);
+          line-height: 1.8;
+          margin-bottom: 32px;
+        }
+
+        .about-cta {
+          font-size: 17px;
+          font-weight: 600;
+          color: var(--text-primary);
+          line-height: 1.7;
+        }
+
+        .about-personal {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border);
+          border-left: 4px solid var(--accent);
+          border-radius: 0 16px 16px 0;
+          padding: 28px 32px;
+          font-size: 16px;
+          color: var(--text-secondary);
+          line-height: 1.7;
+          margin-top: 8px;
+        }
+
+        .hamburger {
+          display: none;
+          flex-direction: column;
+          justify-content: center;
+          gap: 5px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 4px;
+          z-index: 100;
+        }
+
+        .hamburger span {
+          display: block;
+          width: 24px;
+          height: 2px;
+          background: var(--text-primary);
+          border-radius: 2px;
+          transition: all 0.25s ease;
+          transform-origin: center;
+        }
+
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--bg-secondary);
+          border-bottom: 1px solid var(--border);
+          padding: 16px 20px 24px;
+          flex-direction: column;
+          gap: 4px;
+          z-index: 99;
+          box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-nav-link {
+          font-size: 17px;
+          font-weight: 400;
+          color: var(--text-secondary);
+          text-decoration: none;
+          padding: 12px 0;
+          border-bottom: 1px solid var(--border);
+          cursor: pointer;
+          transition: color 0.2s;
+          background: none;
+          border-left: none;
+          border-right: none;
+          border-top: none;
+          text-align: left;
+          font-family: inherit;
+          width: 100%;
+          display: block;
+        }
+
+        .mobile-nav-link:last-child { border-bottom: none; }
+        .mobile-nav-link:hover { color: var(--text-primary); }
+
         @media (max-width: 768px) {
           .container { padding: 0 20px; }
-          h1 { font-size: 42px; }
-          .subtitle { font-size: 18px; }
-          .hero { padding: 100px 0 80px; }
-          .service-grid { grid-template-columns: 1fr; }
-          .contact-wrapper { padding: 40px 28px; }
+
+          nav { position: relative; padding: 20px 0; }
+
           .nav-links { display: none; }
-          .section-title { font-size: 32px; }
-          .stats-grid { gap: 32px; }
+          .hamburger { display: flex; }
+
+          .logo { font-size: 24px; }
+
+          h1 { font-size: 38px; }
+          .subtitle { font-size: 17px; }
+          .hero { padding: 60px 0 60px; }
+
+          .stat-number { font-size: 36px; }
+          .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+          .stat-label { font-size: 13px; }
+
+          .section-title { font-size: 28px; }
+          .section-description { font-size: 16px; }
+
+          .services { padding: 72px 0; }
+          .service-grid { grid-template-columns: 1fr; }
+          .service-card { padding: 28px; }
+
+          .process { padding: 60px 0; }
+          .process-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+
+          .contact { padding: 72px 0; }
+          .contact-wrapper { padding: 32px 24px; }
+          .contact h2 { font-size: 28px; }
+
+          .about { padding: 60px 0; }
+          .about-inner { grid-template-columns: 1fr; gap: 32px; }
+          .about-body { font-size: 16px; }
+
+          .footer-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+          h1 { font-size: 30px; }
+          .stats-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+          .process-grid { grid-template-columns: 1fr; }
+          .cta-group { flex-direction: column; }
+          .btn { width: 100%; text-align: center; }
         }
       `}</style>
 
       <div className="container">
         <nav>
           <div className="nav-left">
-            <div className="logo">Daniels Micheal</div>
+            <div className="logo">EntryTech</div>
             <div className="nav-links">
+              <span className="nav-link" onClick={() => scrollToSection('about')}>About</span>
+              <Link to="/experience" className="nav-link">Experience</Link>
               <span className="nav-link" onClick={() => scrollToSection('services')}>Services</span>
               <span className="nav-link" onClick={() => scrollToSection('process')}>Process</span>
               <span className="nav-link" onClick={() => scrollToSection('contact')}>Contact</span>
             </div>
           </div>
-          <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
-            {darkMode ? '☀️ Light' : '🌙 Dark'}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)}>
+              {darkMode ? '☀️ Light' : '🌙 Dark'}
+            </button>
+            <button
+              className={`hamburger${menuOpen ? ' open' : ''}`}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
+
+          <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+            <span className="mobile-nav-link" onClick={() => scrollToSection('about')}>About</span>
+            <Link to="/experience" className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Experience</Link>
+            <span className="mobile-nav-link" onClick={() => scrollToSection('services')}>Services</span>
+            <span className="mobile-nav-link" onClick={() => scrollToSection('process')}>Process</span>
+            <span className="mobile-nav-link" onClick={() => scrollToSection('contact')}>Contact</span>
+          </div>
         </nav>
 
         <section className="hero">
@@ -484,6 +645,32 @@ export default function Portfolio() {
             <div className="stat-item">
               <div className="stat-number">24/7</div>
               <div className="stat-label">Support available</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="about" id="about">
+          <div className="about-inner">
+            <div className="about-left">
+              <div className="section-tag">About me</div>
+              <h2 className="section-title">Hello there</h2>
+              <p className="about-body">
+                I'm a Software Engineer, working at the Department for Work and Pensions.
+                I'm starting this business to help other businesses owners have a digital presence.
+                Right now, you already know more about me, and my goals without having to email me directly
+                or contact me or even pay me a visit. Imagine this for your business.
+                Imagine the amount of potential clients you're dropping on the table, because you don't
+                have an online presence, idk what to tell ya.
+              </p>
+              <p className="about-cta">
+                But, don't waste anymore time, leave a message and I'll get back to you.
+              </p>
+            </div>
+
+            <div>
+              <div className="about-personal">
+                I enjoy lifting heavy weights, we can talk over coffee and whatever suits you best.
+              </div>
             </div>
           </div>
         </section>
@@ -637,7 +824,7 @@ export default function Portfolio() {
               <a href="#process" className="footer-link">Process</a>
               <a href="#contact" className="footer-link">Contact</a>
             </div>
-            <p className="copyright">© 2025 Daniels Micheal. All rights reserved.</p>
+            <p className="copyright">© 2025 EntryTech. All rights reserved.</p>
           </div>
         </footer>
       </div>
