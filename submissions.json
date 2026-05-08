@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Test",
+    "email": "test@test.com",
+    "message": "Hello!",
+    "timestamp": "2026-05-08T16:00:55.330Z"
+  },
+  {
+    "name": "Django Fabio",
+    "email": "djangofabio@gmail.com",
+    "message": "Tell me moreabout it",
+    "timestamp": "2026-05-08T16:02:50.574Z"
+  },
+  {
+    "name": "Luke Lambsmith",
+    "email": "lukelamsmith@gmail.com",
+    "message": "Vij03556\n",
+    "timestamp": "2026-05-08T16:07:33.439Z"
+  }
+]
