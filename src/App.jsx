@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Portfolio() {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    () => window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formError, setFormError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -11,6 +13,13 @@ export default function Portfolio() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e) => setDarkMode(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,17 +107,17 @@ export default function Portfolio() {
 
         .nav-left { display: flex; gap: 48px; align-items: center; }
 
-        .logo { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
+        .logo { font-size: 32px; font-weight: 800; letter-spacing: -0.04em; color: var(--text-primary); }
 
         .nav-links { display: flex; gap: 32px; }
 
         .nav-link {
-          font-size: 15px;
+          font-size: 16px;
           color: var(--text-secondary);
           text-decoration: none;
           transition: color 0.2s;
           cursor: pointer;
-          font-weight: 500;
+          font-weight: 400;
         }
         .nav-link:hover { color: var(--text-primary); }
 
@@ -125,7 +134,7 @@ export default function Portfolio() {
         }
         .theme-toggle:hover { background: var(--bg-secondary); }
 
-        .hero { padding: 140px 0 100px; max-width: 900px; }
+        .hero { padding: 80px 0 100px; max-width: 900px; }
 
         h1 {
           font-size: 64px;
@@ -441,7 +450,6 @@ export default function Portfolio() {
           <div className="nav-left">
             <div className="logo">Daniels Micheal</div>
             <div className="nav-links">
-              <Link to="/experience" className="nav-link">Experience</Link>
               <span className="nav-link" onClick={() => scrollToSection('services')}>Services</span>
               <span className="nav-link" onClick={() => scrollToSection('process')}>Process</span>
               <span className="nav-link" onClick={() => scrollToSection('contact')}>Contact</span>
