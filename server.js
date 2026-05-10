@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const winston = require('winston');
 const morgan = require('morgan');
 
@@ -65,17 +65,10 @@ const contactSchema = new mongoose.Schema(
 
 const Contact = mongoose.model('Contact', contactSchema);
 
-// ─── Nodemailer ───────────────────────────────────────────────────────────────
+// ─── SendGrid ─────────────────────────────────────────────────────────────────
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-});
-
-transporter.verify((err) => {
-  if (err) logger.warn(`Email transporter not ready: ${err.message}`);
-  else logger.info(`Email ready — sending from ${process.env.EMAIL_USER}`);
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+logger.info(`Email ready — sending from ${process.env.EMAIL_FROM}`);
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
@@ -94,8 +87,8 @@ app.post('/api/contact', async (req, res) => {
 
     res.json({ success: true, message: "Thanks! I'll get back to you soon." });
 
-    transporter.sendMail({
-      from: `"EntryTech" <${process.env.EMAIL_USER}>`,
+    sgMail.send({
+      from: { name: 'EntryTech', email: process.env.EMAIL_FROM },
       to: email,
       subject: 'Thanks for reaching out!',
       text: `Hey ${name},\n\nThanks for reaching out — shortly we'll reach out to you to choose a time you'd want to discuss.\n\nSpeak soon,\nEntryTech`,
