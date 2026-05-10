@@ -656,7 +656,7 @@ export default function Portfolio() {
               <h2 className="section-title">Hello there</h2>
               <p className="about-body">
                 I'm a Software Engineer, working at the Department for Work and Pensions.
-                I'm starting this business to help other businesses owners have a digital presence.
+                I intend for this business to help other businesses and their owners have a digital presence.
                 Right now, you already know more about me, and my goals without having to email me directly
                 or contact me or even pay me a visit. Imagine this for your business.
                 Imagine the amount of potential clients you're dropping on the table, because you don't
