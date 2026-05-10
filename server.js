@@ -92,16 +92,16 @@ app.post('/api/contact', async (req, res) => {
     await Contact.create({ name, email, message });
     logger.info(`Contact saved to DB — ${email}`);
 
-    await transporter.sendMail({
+    res.json({ success: true, message: "Thanks! I'll get back to you soon." });
+
+    transporter.sendMail({
       from: `"EntryTech" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Thanks for reaching out!',
       text: `Hey ${name},\n\nThanks for reaching out — shortly we'll reach out to you to choose a time you'd want to discuss.\n\nSpeak soon,\nEntryTech`,
       html: `<p>Hey ${name},</p><p>Thanks for reaching out — shortly we'll reach out to you to choose a time you'd want to discuss.</p><p>Speak soon,<br/><strong>EntryTech</strong></p>`,
-    });
-    logger.info(`Confirmation email sent to ${email}`);
-
-    res.json({ success: true, message: "Thanks! I'll get back to you soon." });
+    }).then(() => logger.info(`Confirmation email sent to ${email}`))
+      .catch((err) => logger.warn(`Email failed for ${email}: ${err.message}`));
   } catch (err) {
     logger.error(`Contact form error for ${email}: ${err.message}`, err);
     res.status(500).json({ error: 'Something went wrong. Please try again.' });
