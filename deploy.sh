@@ -4,13 +4,17 @@ set -e
 echo "==> Pulling latest code..."
 git pull origin main
 
-echo "==> Rebuilding and restarting containers..."
-docker compose up -d --build --remove-orphans
+echo "==> Installing dependencies..."
+npm ci
 
-echo "==> Issuing/renewing SSL certificate..."
-docker compose run --rm certbot
+echo "==> Building frontend..."
+npm run build
 
-echo "==> Reloading Nginx..."
-docker compose exec nginx nginx -s reload
+echo "==> Restarting app..."
+pm2 restart entrytech || pm2 start server.js --name entrytech
+pm2 save
 
-echo "==> Done. EntryTech is live at https://entrytech.co.uk"
+echo "==> Reloading nginx..."
+nginx -t && systemctl reload nginx
+
+echo "==> Done. EntryTech is live at https://entryteckh.co.uk"
