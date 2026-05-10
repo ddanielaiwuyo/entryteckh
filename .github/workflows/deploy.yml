@@ -12,7 +12,7 @@ jobs:
       - name: SSH into droplet and deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 57.230.231.253
+          host: 157.230.231.253
           username: root
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
