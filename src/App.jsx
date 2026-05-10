@@ -770,6 +770,9 @@ export default function Portfolio() {
             <p className="contact-subtitle">
               Ready to take your business online? Get in touch and let's discuss how I can help you achieve your goals.
             </p>
+            <p className="contact-subtitle" style={{ marginBottom: '32px' }}>
+              Or email us directly at <a href="mailto:hello@entryteckh.co.uk" style={{ color: 'var(--accent)', textDecoration: 'none' }}>hello@entryteckh.co.uk</a>
+            </p>
 
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -823,8 +826,9 @@ export default function Portfolio() {
               <a href="#services" className="footer-link">Services</a>
               <a href="#process" className="footer-link">Process</a>
               <a href="#contact" className="footer-link">Contact</a>
+              <a href="mailto:hello@entryteckh.co.uk" className="footer-link">hello@entryteckh.co.uk</a>
             </div>
-            <p className="copyright">© 2025 EntryTech. All rights reserved.</p>
+            <p className="copyright">© 2026 EntryTech. All rights reserved.</p>
           </div>
         </footer>
       </div>
