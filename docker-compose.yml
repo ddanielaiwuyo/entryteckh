@@ -41,9 +41,9 @@ services:
     entrypoint: >
       /bin/sh -c "
         certbot certonly --webroot --webroot-path=/var/www/certbot
-        --email aiwuyoeghosadaniel2@gmail.com
+        --email entryteckh@gmail.com
         --agree-tos --no-eff-email --keep-until-expiring
-        -d entrytech.co.uk -d www.entrytech.co.uk
+        -d entryteckh.co.uk -d www.entryteckh.co.uk
       "
 
 volumes:
